@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 // =====================================================
 
 class Barang {
-  // Atribut
   String nama;
   double harga;
   int stok;
@@ -13,7 +12,7 @@ class Barang {
   // Konstruktor
   Barang(this.nama, this.harga, this.stok);
 
-  // Method untuk menampilkan kartu barang
+  // Method menampilkan kartu barang
   void tampilkan() {
     print("=== KARTU BARANG ===");
     print("Nama : $nama");
@@ -244,8 +243,6 @@ void main() {
   // Laporan stok menipis berguna untuk mengetahui barang
   // yang hampir habis sehingga koperasi dapat segera
   // melakukan pembelian atau pengadaan stok kembali.
-  // Dengan laporan ini, koperasi dapat mencegah kehabisan
-  // barang dan tetap memenuhi kebutuhan pembeli.
 
   // =====================================================
   // 11. PENJUALAN DENGAN WHILE
@@ -273,9 +270,6 @@ void main() {
   // 12. OOP - MEMBUAT 3 OBJEK BARANG
   // =====================================================
 
-  print("");
-  print("=== DATA BARANG DENGAN OOP ===");
-
   Barang bukuTulis = Barang(
     "Buku Tulis",
     3000.0,
@@ -294,17 +288,29 @@ void main() {
     15,
   );
 
-  // Memanggil method tampilkan() dari setiap objek
-  bukuTulis.tampilkan();
-  pulpen.tampilkan();
-  roti.tampilkan();
-
   // =====================================================
-  // KOMENTAR TIPE DATA
+  // 13. LIST<Barang>
   // =====================================================
 
-  // Pemilihan tipe data yang tepat penting bagi keakuratan
-  // kasir koperasi karena setiap data memiliki fungsi berbeda.
-  // String digunakan untuk nama, double untuk harga,
-  // int untuk stok, dan bool untuk status ketersediaan.
+  List<Barang> daftarBarangOOP = [
+    bukuTulis,
+    pulpen,
+    roti,
+  ];
+
+  print("");
+  print("=== DAFTAR BARANG BERBASIS OBJEK ===");
+
+  // Menampilkan seluruh objek menggunakan perulangan.
+  for (Barang barang in daftarBarangOOP) {
+    barang.tampilkan();
+  }
+
+  // Dibandingkan cara Sprint 3 yang menggunakan List nama,
+  // List harga, dan List stok secara terpisah, List<Barang>
+  // lebih rapi karena seluruh data setiap barang disimpan
+  // dalam satu objek.
+  //
+  // Jika jumlah barang bertambah, kita cukup membuat objek
+  // Barang baru dan memasukkannya ke List<Barang>.
 }
