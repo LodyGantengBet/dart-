@@ -11,14 +11,14 @@ final formatRupiah = NumberFormat('#,##0', 'id_ID');
 // =====================================================
 
 class Barang {
-
   String nama;
   double harga;
   int stok;
 
+  // Konstruktor
   Barang(this.nama, this.harga, this.stok);
 
-
+  // Method menampilkan kartu barang
   void tampilkan() {
     print("=== KARTU BARANG ===");
     print("Nama : $nama");
@@ -28,27 +28,58 @@ class Barang {
     print("");
   }
 
-
+  // Menghitung nilai seluruh stok
   double nilaiStok() {
     return harga * stok;
   }
 
- 
+  // Mengecek apakah barang bisa dijual
   bool bisaDijual(int diminta) {
     return diminta > 0 && diminta <= stok;
   }
 }
 
 // =====================================================
+// SPRINT 5 - CLASS PEMBELI
+// =====================================================
+
+class Pembeli {
+  String nama;
+  bool anggota;
+
+  // Konstruktor
+  Pembeli(this.nama, this.anggota);
+
+  // Method menampilkan data pembeli
+  void tampilkan() {
+    print("=== DATA PEMBELI ===");
+    print("Nama : $nama");
+
+    if (anggota) {
+      print("Status : Anggota");
+    } else {
+      print("Status : Umum");
+    }
+
+    print("");
+  }
+}
+
+// Relasi yang wajar antara Pembeli dan Barang adalah hubungan transaksi.
+// Satu Pembeli dapat membeli satu atau beberapa Barang dalam satu transaksi.
+// Barang tetap menjadi objek yang berdiri sendiri, sedangkan Pembeli
+// membeli Barang melalui transaksi.
+
+// =====================================================
 // SPRINT 4 - FUNGSI
 // =====================================================
 
-// Fungsi menghitung total pembelian
+// Menghitung total pembelian
 double hitungTotal(int jumlah, double harga) {
   return jumlah * harga;
 }
 
-// Fungsi menghitung harga akhir setelah potongan
+// Menghitung harga akhir setelah potongan
 double hitungHargaAkhir(
   double total,
   double persenPotongan,
@@ -66,10 +97,7 @@ void main() {
   double hargaUmum = 3500.0;
   int stok = 40;
 
-  // =====================================================
-  // KETERSEDIAAN BARANG
-  // =====================================================
-
+  // Menentukan ketersediaan barang
   bool tersedia;
 
   if (stok == 0) {
@@ -321,7 +349,7 @@ void main() {
   // berhenti tepat ketika stok mencapai 0.
 
   // =====================================================
-  // SPRINT 4 - CONTOH PEMANGGILAN FUNGSI
+  // SPRINT 4 - CONTOH FUNGSI
   // =====================================================
 
   print("");
@@ -456,7 +484,32 @@ void main() {
   // mengurangi risiko menjual barang melebihi stok.
 
   // =====================================================
-  // KEUNTUNGAN OOP
+  // SPRINT 5 - OBJEK PEMBELI
+  // =====================================================
+
+  Pembeli pembeli = Pembeli(
+    "Lody",
+    true,
+  );
+
+  print("");
+  pembeli.tampilkan();
+
+  // =====================================================
+  // RELASI PEMBELI DAN BARANG
+  // =====================================================
+
+  // Relasi yang wajar antara Pembeli dan Barang adalah
+  // hubungan transaksi.
+  //
+  // Satu Pembeli dapat membeli satu atau beberapa Barang
+  // dalam satu transaksi.
+  //
+  // Barang tetap menjadi objek yang berdiri sendiri,
+  // sedangkan Pembeli membeli Barang melalui transaksi.
+
+  // =====================================================
+  // CATATAN KEUNTUNGAN OOP
   // =====================================================
 
   // Keuntungan memodelkan barang sebagai objek adalah data
