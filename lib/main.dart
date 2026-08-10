@@ -11,6 +11,7 @@ final formatRupiah = NumberFormat('#,##0', 'id_ID');
 // =====================================================
 
 class Barang {
+  // Atribut
   String nama;
   double harga;
   int stok;
@@ -27,26 +28,34 @@ class Barang {
     print("Tersedia : ${stok > 0}");
     print("");
   }
+
+  // Method menghitung nilai seluruh stok
+  // Rumus: harga x stok
+  double nilaiStok() {
+    return harga * stok;
+  }
 }
 
 // =====================================================
 // SPRINT 4 - FUNGSI
 // =====================================================
 
-// Menghitung total berdasarkan jumlah dan harga
+// Fungsi menghitung total pembelian
 double hitungTotal(int jumlah, double harga) {
   return jumlah * harga;
 }
 
-// Menghitung harga akhir setelah potongan
-double hitungHargaAkhir(double total, double persenPotongan) {
+// Fungsi menghitung harga akhir setelah potongan
+double hitungHargaAkhir(
+  double total,
+  double persenPotongan,
+) {
   return total - (total * persenPotongan / 100);
 }
 
 void main() {
   // =====================================================
-  // SPRINT 1
-  // DATA BARANG DAN TIPE DATA
+  // SPRINT 1 - DATA BARANG
   // =====================================================
 
   String namaBarang = "Buku Tulis";
@@ -54,7 +63,7 @@ void main() {
   double hargaUmum = 3500.0;
   int stok = 40;
 
-  // Bool tersedia ditentukan berdasarkan stok
+  // Menentukan ketersediaan barang
   bool tersedia;
 
   if (stok == 0) {
@@ -71,7 +80,7 @@ void main() {
   print("Tersedia : $tersedia");
 
   // =====================================================
-  // SPRINT 1 - PERHITUNGAN HARGA
+  // SPRINT 1 - PERHITUNGAN
   // =====================================================
 
   int jumlahBeli = 3;
@@ -98,8 +107,7 @@ void main() {
   );
 
   // =====================================================
-  // SPRINT 2
-  // STATUS ANGGOTA DAN PEMILIHAN HARGA
+  // SPRINT 2 - STATUS PEMBELI
   // =====================================================
 
   bool anggota = true;
@@ -129,8 +137,7 @@ void main() {
   }
 
   // =====================================================
-  // SPRINT 2
-  // POTONGAN BERTINGKAT
+  // SPRINT 2 - POTONGAN
   // =====================================================
 
   double persenPotongan;
@@ -149,8 +156,7 @@ void main() {
   }
 
   // =====================================================
-  // SPRINT 4
-  // HITUNG HARGA AKHIR DENGAN FUNGSI
+  // SPRINT 4 - HARGA AKHIR
   // =====================================================
 
   double hargaAkhir = hitungHargaAkhir(
@@ -172,8 +178,7 @@ void main() {
   );
 
   // =====================================================
-  // SPRINT 2
-  // KATEGORI DENGAN SWITCH
+  // SPRINT 2 - KATEGORI DENGAN SWITCH
   // =====================================================
 
   String kategori = "atk";
@@ -206,8 +211,7 @@ void main() {
   // Setiap pilihan memiliki case sendiri sehingga lebih mudah dibaca.
 
   // =====================================================
-  // SPRINT 3
-  // DAFTAR BARANG DENGAN LIST DAN FOR
+  // SPRINT 3 - DAFTAR BARANG DENGAN FOR
   // =====================================================
 
   List<String> daftarBarang = [
@@ -234,8 +238,7 @@ void main() {
   }
 
   // =====================================================
-  // SPRINT 3
-  // DATA STOK SETIAP BARANG
+  // SPRINT 3 - DATA STOK
   // =====================================================
 
   List<int> daftarStok = [
@@ -246,8 +249,7 @@ void main() {
   ];
 
   // =====================================================
-  // SPRINT 3
-  // TOTAL NILAI SELURUH STOK
+  // SPRINT 3 - TOTAL NILAI SELURUH STOK
   // =====================================================
 
   double totalNilaiStok = 0;
@@ -269,8 +271,7 @@ void main() {
   // kemudian hasilnya ditambahkan ke total nilai stok.
 
   // =====================================================
-  // SPRINT 3
-  // LAPORAN STOK MENIPIS
+  // SPRINT 3 - STOK MENIPIS
   // =====================================================
 
   print("");
@@ -289,8 +290,7 @@ void main() {
   // melakukan pembelian atau pengadaan stok kembali.
 
   // =====================================================
-  // SPRINT 3
-  // PENJUALAN DENGAN WHILE
+  // SPRINT 3 - PENJUALAN DENGAN WHILE
   // =====================================================
 
   int stokBukuTulis = 3;
@@ -309,12 +309,13 @@ void main() {
   // Bahaya jika kondisi berhenti pada while keliru adalah
   // perulangan dapat berjalan terlalu banyak dan menyebabkan
   // stok menjadi negatif atau barang terjual melebihi stok.
-  // Kondisi stokBukuTulis > 0 memastikan penjualan berhenti
-  // tepat ketika stok mencapai 0.
+  //
+  // Untuk memastikan koperasi tidak menjual melebihi stok,
+  // gunakan kondisi stokBukuTulis > 0 sehingga penjualan
+  // berhenti tepat ketika stok mencapai 0.
 
   // =====================================================
-  // SPRINT 4
-  // CONTOH PEMANGGILAN FUNGSI
+  // SPRINT 4 - CONTOH PEMANGGILAN FUNGSI
   // =====================================================
 
   print("");
@@ -335,9 +336,7 @@ void main() {
     persenPotonganContoh,
   );
 
-  print(
-    "Jumlah : $jumlahContoh",
-  );
+  print("Jumlah : $jumlahContoh");
   print(
     "Harga : Rp${formatRupiah.format(hargaContoh)}",
   );
@@ -353,12 +352,11 @@ void main() {
 
   // Pemecahan program menjadi fungsi membuat kode lebih rapi,
   // mudah digunakan kembali, dan mengurangi pengulangan rumus.
-  // Jika aturan potongan diubah, bagian yang menghitung harga
-  // akhir cukup diubah pada fungsi hitungHargaAkhir() sekali.
+  // Jika aturan potongan diubah, cukup mengubah fungsi
+  // hitungHargaAkhir() sehingga penerapannya konsisten.
 
   // =====================================================
-  // SPRINT 5
-  // MEMBUAT 3 OBJEK BARANG
+  // SPRINT 5 - MEMBUAT OBJEK BARANG
   // =====================================================
 
   Barang bukuTulis = Barang(
@@ -380,8 +378,7 @@ void main() {
   );
 
   // =====================================================
-  // SPRINT 5
-  // LIST<Barang>
+  // SPRINT 5 - LIST BARANG
   // =====================================================
 
   List<Barang> daftarBarangOOP = [
@@ -402,17 +399,38 @@ void main() {
   // lebih rapi karena seluruh data setiap barang disimpan
   // dalam satu objek.
   //
-  // Jika jumlah barang bertambah, kita cukup membuat objek
-  // Barang baru dan memasukkannya ke dalam List<Barang>.
+  // Jika jumlah barang bertambah, cukup membuat objek Barang
+  // baru dan memasukkannya ke dalam List<Barang>.
 
   // =====================================================
-  // JAWABAN SPRINT 5
+  // SPRINT 5 - NILAI STOK PER BARANG
   // =====================================================
 
-  // Keuntungan memodelkan barang sebagai objek adalah data dan
-  // fungsi setiap barang menjadi lebih terstruktur dan mudah
-  // dikelola. Jika sistem koperasi berkembang, objek Barang
-  // dapat dikembangkan dengan fitur seperti harga, stok,
-  // kategori, dan transaksi tanpa membuat banyak variabel
+  print("");
+  print("=== NILAI STOK SETIAP BARANG ===");
+
+  for (Barang barang in daftarBarangOOP) {
+    print(
+      "${barang.nama} : Rp${formatRupiah.format(barang.nilaiStok())}",
+    );
+  }
+
+  // Method nilaiStok() menghitung harga dikali stok.
+  // Angka ini berguna untuk mengetahui perkiraan nilai
+  // aset barang yang masih dimiliki koperasi.
+  // Informasi tersebut dapat digunakan dalam laporan aset
+  // dan membantu koperasi mengetahui nilai persediaannya.
+
+  // =====================================================
+  // KEUNTUNGAN OOP
+  // =====================================================
+
+  // Keuntungan memodelkan barang sebagai objek adalah data
+  // dan fungsi setiap barang menjadi lebih terstruktur dan
+  // mudah dikelola.
+  //
+  // Jika sistem koperasi berkembang, objek Barang dapat
+  // dikembangkan dengan fitur seperti harga, stok, kategori,
+  // nilai stok, dan transaksi tanpa membuat banyak variabel
   // yang terpisah.
 }
