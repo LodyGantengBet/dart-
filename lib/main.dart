@@ -11,15 +11,14 @@ final formatRupiah = NumberFormat('#,##0', 'id_ID');
 // =====================================================
 
 class Barang {
-  // Atribut
+
   String nama;
   double harga;
   int stok;
 
-  // Konstruktor
   Barang(this.nama, this.harga, this.stok);
 
-  // Method menampilkan kartu barang
+
   void tampilkan() {
     print("=== KARTU BARANG ===");
     print("Nama : $nama");
@@ -29,10 +28,14 @@ class Barang {
     print("");
   }
 
-  // Method menghitung nilai seluruh stok
-  // Rumus: harga x stok
+
   double nilaiStok() {
     return harga * stok;
+  }
+
+ 
+  bool bisaDijual(int diminta) {
+    return diminta > 0 && diminta <= stok;
   }
 }
 
@@ -63,7 +66,10 @@ void main() {
   double hargaUmum = 3500.0;
   int stok = 40;
 
-  // Menentukan ketersediaan barang
+  // =====================================================
+  // KETERSEDIAAN BARANG
+  // =====================================================
+
   bool tersedia;
 
   if (stok == 0) {
@@ -356,7 +362,7 @@ void main() {
   // hitungHargaAkhir() sehingga penerapannya konsisten.
 
   // =====================================================
-  // SPRINT 5 - MEMBUAT OBJEK BARANG
+  // SPRINT 5 - MEMBUAT 3 OBJEK BARANG
   // =====================================================
 
   Barang bukuTulis = Barang(
@@ -403,7 +409,7 @@ void main() {
   // baru dan memasukkannya ke dalam List<Barang>.
 
   // =====================================================
-  // SPRINT 5 - NILAI STOK PER BARANG
+  // NILAI STOK SETIAP BARANG
   // =====================================================
 
   print("");
@@ -415,11 +421,39 @@ void main() {
     );
   }
 
-  // Method nilaiStok() menghitung harga dikali stok.
-  // Angka ini berguna untuk mengetahui perkiraan nilai
-  // aset barang yang masih dimiliki koperasi.
-  // Informasi tersebut dapat digunakan dalam laporan aset
-  // dan membantu koperasi mengetahui nilai persediaannya.
+  // Nilai stok berguna untuk mengetahui perkiraan nilai
+  // aset atau persediaan barang yang masih dimiliki koperasi.
+  // Nilai tersebut dapat digunakan dalam laporan aset koperasi.
+
+  // =====================================================
+  // CEK BARANG BISA DIJUAL
+  // =====================================================
+
+  int diminta = 2;
+
+  print("");
+  print("=== CEK PENJUALAN ===");
+
+  if (bukuTulis.bisaDijual(diminta)) {
+    print(
+      "Bisa dijual: $diminta ${bukuTulis.nama}",
+    );
+  } else {
+    print(
+      "Tidak bisa dijual: stok ${bukuTulis.nama} tidak mencukupi.",
+    );
+  }
+
+  // Pengecekan bisaDijual() diletakkan di dalam objek Barang
+  // agar aturan kecukupan stok menjadi bagian dari data dan
+  // perilaku barang.
+  //
+  // Dengan begitu, setiap transaksi dapat menggunakan
+  // pengecekan yang sama tanpa menulis ulang kondisi stok
+  // di banyak tempat.
+  //
+  // Hal ini membuat kode lebih rapi, konsisten, dan
+  // mengurangi risiko menjual barang melebihi stok.
 
   // =====================================================
   // KEUNTUNGAN OOP
@@ -431,6 +465,6 @@ void main() {
   //
   // Jika sistem koperasi berkembang, objek Barang dapat
   // dikembangkan dengan fitur seperti harga, stok, kategori,
-  // nilai stok, dan transaksi tanpa membuat banyak variabel
-  // yang terpisah.
+  // nilai stok, pengecekan penjualan, dan transaksi tanpa
+  // membuat banyak variabel yang terpisah.
 }
