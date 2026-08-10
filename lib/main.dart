@@ -313,4 +313,10 @@ void main() {
   //
   // Jika jumlah barang bertambah, kita cukup membuat objek
   // Barang baru dan memasukkannya ke List<Barang>.
+
+  // Keuntungan memodelkan barang sebagai objek adalah data dan fungsi
+  // setiap barang menjadi lebih terstruktur dan mudah dikelola.
+  // Jika sistem koperasi berkembang, objek Barang dapat dikembangkan
+  // dengan fitur seperti harga, stok, kategori, dan transaksi tanpa
+  // membuat banyak variabel yang terpisah.
 }
