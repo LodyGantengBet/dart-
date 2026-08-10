@@ -1,52 +1,24 @@
 import 'package:intl/intl.dart';
 
-// =====================================================
-// CLASS BARANG
-// =====================================================
-
-class Barang {
-  String nama;
-  double harga;
-  int stok;
-
-  // Konstruktor
-  Barang(this.nama, this.harga, this.stok);
-
-  // Method menampilkan kartu barang
-  void tampilkan() {
-    print("=== KARTU BARANG ===");
-    print("Nama : $nama");
-    print("Harga : Rp${formatRupiah.format(harga)}");
-    print("Stok : $stok");
-    print("Tersedia : ${stok > 0}");
-    print("");
-  }
-}
-
-// Format rupiah
 final formatRupiah = NumberFormat('#,##0', 'id_ID');
 
-void main() {
-  // =====================================================
-  // 1. DATA BARANG
-  // =====================================================
+// Fungsi menghitung total
+double hitungTotal(int jumlah, double harga) {
+  return jumlah * harga;
+}
 
+// Fungsi menghitung harga akhir
+double hitungHargaAkhir(double total, double persenPotongan) {
+  return total - (total * persenPotongan / 100);
+}
+
+void main() {
   String namaBarang = "Buku Tulis";
   double hargaAnggota = 3000.0;
   double hargaUmum = 3500.0;
   int stok = 40;
 
-  // =====================================================
-  // 2. KETERSEDIAAN BARANG
-  // =====================================================
-
-  bool tersedia;
-
-  if (stok == 0) {
-    tersedia = false;
-  } else {
-    tersedia = true;
-  }
+  bool tersedia = stok > 0;
 
   print("=== KARTU DATA BARANG ===");
   print("Nama : $namaBarang");
@@ -55,28 +27,17 @@ void main() {
   print("Stok : $stok");
   print("Tersedia : $tersedia");
 
-  // =====================================================
-  // 3. PERHITUNGAN 3 BUKU
-  // =====================================================
-
   int jumlahBeli = 3;
 
-  double totalAnggota = jumlahBeli * hargaAnggota;
-  double totalUmum = jumlahBeli * hargaUmum;
+  double totalAnggota = hitungTotal(jumlahBeli, hargaAnggota);
+  double totalUmum = hitungTotal(jumlahBeli, hargaUmum);
   double selisih = totalUmum - totalAnggota;
 
   print("");
   print("=== PERHITUNGAN ===");
   print(
-    "Total (anggota) $jumlahBeli pcs: Rp${formatRupiah.format(totalAnggota)}",
-  );
-  print(
-    "Selisih vs umum : Rp${formatRupiah.format(selisih)}",
-  );
-
-  // =====================================================
-  // 4. STATUS ANGGOTA DAN PEMILIHAN HARGA
-  // =====================================================
+      "Total (anggota) $jumlahBeli pcs: Rp${formatRupiah.format(totalAnggota)}");
+  print("Selisih vs umum : Rp${formatRupiah.format(selisih)}");
 
   bool anggota = true;
 
@@ -88,7 +49,7 @@ void main() {
     harga = hargaUmum;
   }
 
-  double total = harga * jumlahBeli;
+  double total = hitungTotal(jumlahBeli, harga);
 
   print("");
   print("=== STATUS PEMBELI ===");
@@ -101,40 +62,30 @@ void main() {
     print("Harga yang digunakan : Harga Umum");
   }
 
-  // =====================================================
-  // 5. POTONGAN
-  // =====================================================
-
   double persenPotongan;
 
   if (total < 0) {
     print("Error: Total tidak boleh negatif.");
-    persenPotongan = 0.0;
+    persenPotongan = 0;
   } else if (anggota && total > 500000) {
-    persenPotongan = 0.15;
+    persenPotongan = 15;
   } else if (total > 200000) {
-    persenPotongan = 0.10;
+    persenPotongan = 10;
   } else if (total > 100000) {
-    persenPotongan = 0.05;
+    persenPotongan = 5;
   } else {
-    persenPotongan = 0.0;
+    persenPotongan = 0;
   }
 
-  double nilaiPotongan = total * persenPotongan;
-  double hargaAkhir = total - nilaiPotongan;
+  double hargaAkhir = hitungHargaAkhir(total, persenPotongan);
+  double nilaiPotongan = total - hargaAkhir;
 
   print("");
   print("=== TRANSAKSI ===");
   print("Total : Rp${formatRupiah.format(total)}");
-  print("Potongan : ${persenPotongan * 100}%");
-  print(
-    "Nilai Potongan : Rp${formatRupiah.format(nilaiPotongan)}",
-  );
+  print("Potongan : $persenPotongan%");
+  print("Nilai Potongan : Rp${formatRupiah.format(nilaiPotongan)}");
   print("Harga Akhir : Rp${formatRupiah.format(hargaAkhir)}");
-
-  // =====================================================
-  // 6. KATEGORI DENGAN SWITCH
-  // =====================================================
 
   String kategori = "atk";
   String rak;
@@ -143,15 +94,12 @@ void main() {
     case "atk":
       rak = "Rak 1";
       break;
-
     case "makanan":
       rak = "Rak 2";
       break;
-
     case "minuman":
       rak = "Rak 3";
       break;
-
     default:
       rak = "Rak lain";
   }
@@ -161,26 +109,18 @@ void main() {
   print("Kategori : $kategori");
   print("Rak : $rak");
 
-  // Switch lebih rapi daripada banyak if karena satu variabel
-  // dibandingkan dengan beberapa pilihan nilai.
-  // Setiap pilihan memiliki case sendiri sehingga lebih mudah dibaca.
-
-  // =====================================================
-  // 7. DAFTAR BARANG DENGAN FOR
-  // =====================================================
-
   List<String> daftarBarang = [
     "Buku Tulis",
     "Pulpen",
     "Penghapus",
-    "Roti",
+    "Roti"
   ];
 
   List<double> daftarHarga = [
     3000,
     2500,
     1500,
-    5000,
+    5000
   ];
 
   print("");
@@ -188,65 +128,34 @@ void main() {
 
   for (int i = 0; i < daftarBarang.length; i++) {
     print(
-      "${i + 1}. ${daftarBarang[i]} - Rp. ${formatRupiah.format(daftarHarga[i])}",
-    );
+        "${i + 1}. ${daftarBarang[i]} - Rp${formatRupiah.format(daftarHarga[i])}");
   }
-
-  // =====================================================
-  // 8. STOK SETIAP BARANG
-  // =====================================================
 
   List<int> daftarStok = [
     40,
     30,
     3,
-    15,
+    15
   ];
-
-  // =====================================================
-  // 9. TOTAL NILAI SELURUH STOK
-  // =====================================================
 
   double totalNilaiStok = 0;
 
   for (int i = 0; i < daftarBarang.length; i++) {
-    double nilaiStok = daftarHarga[i] * daftarStok[i];
-
-    totalNilaiStok = totalNilaiStok + nilaiStok;
+    totalNilaiStok += daftarHarga[i] * daftarStok[i];
   }
 
   print("");
-  print("=== TOTAL NILAI SELURUH STOK ===");
-  print(
-    "Total nilai stok : Rp${formatRupiah.format(totalNilaiStok)}",
-  );
-
-  // Akumulator digunakan untuk menjumlahkan nilai seluruh stok.
-  // Setiap barang dihitung dengan harga dikali jumlah stok,
-  // kemudian hasilnya ditambahkan ke total nilai stok.
-
-  // =====================================================
-  // 10. LAPORAN STOK MENIPIS
-  // =====================================================
+  print("=== TOTAL NILAI STOK ===");
+  print("Rp${formatRupiah.format(totalNilaiStok)}");
 
   print("");
   print("=== STOK MENIPIS ===");
 
   for (int i = 0; i < daftarBarang.length; i++) {
     if (daftarStok[i] < 5) {
-      print(
-        "${daftarBarang[i]} - Sisa stok: ${daftarStok[i]}",
-      );
+      print("${daftarBarang[i]} - Stok: ${daftarStok[i]}");
     }
   }
-
-  // Laporan stok menipis berguna untuk mengetahui barang
-  // yang hampir habis sehingga koperasi dapat segera
-  // melakukan pembelian atau pengadaan stok kembali.
-
-  // =====================================================
-  // 11. PENJUALAN DENGAN WHILE
-  // =====================================================
 
   int stokBukuTulis = 3;
 
@@ -254,69 +163,21 @@ void main() {
   print("--- Penjualan Buku Tulis ---");
 
   while (stokBukuTulis > 0) {
-    stokBukuTulis = stokBukuTulis - 1;
-
+    stokBukuTulis--;
     print("Terjual 1, sisa stok: $stokBukuTulis");
   }
 
-  // Bahaya jika kondisi berhenti pada while keliru adalah
-  // perulangan dapat berjalan terlalu banyak dan menyebabkan
-  // stok menjadi negatif atau barang terjual melebihi stok.
-  // Untuk memastikan koperasi tidak menjual melebihi stok,
-  // gunakan kondisi while stokBukuTulis > 0 sehingga penjualan
-  // otomatis berhenti ketika stok sudah mencapai 0.
-
-  // =====================================================
-  // 12. OOP - MEMBUAT 3 OBJEK BARANG
-  // =====================================================
-
-  Barang bukuTulis = Barang(
-    "Buku Tulis",
-    3000.0,
-    40,
-  );
-
-  Barang pulpen = Barang(
-    "Pulpen",
-    2500.0,
-    30,
-  );
-
-  Barang roti = Barang(
-    "Roti",
-    5000.0,
-    15,
-  );
-
-  // =====================================================
-  // 13. LIST<Barang>
-  // =====================================================
-
-  List<Barang> daftarBarangOOP = [
-    bukuTulis,
-    pulpen,
-    roti,
-  ];
-
   print("");
-  print("=== DAFTAR BARANG BERBASIS OBJEK ===");
+  print("=== CONTOH FUNGSI ===");
 
-  // Menampilkan seluruh objek menggunakan perulangan.
-  for (Barang barang in daftarBarangOOP) {
-    barang.tampilkan();
-  }
+  double totalContoh = hitungTotal(10, 5000);
+  double akhirContoh = hitungHargaAkhir(totalContoh, 5);
 
-  // Dibandingkan cara Sprint 3 yang menggunakan List nama,
-  // List harga, dan List stok secara terpisah, List<Barang>
-  // lebih rapi karena seluruh data setiap barang disimpan
-  // dalam satu objek.
-  //
-  // Jika jumlah barang bertambah, kita cukup membuat objek
-  // Barang baru dan memasukkannya ke List<Barang>.
+  print("Total : Rp${formatRupiah.format(totalContoh)}");
+  print("Harga Akhir : Rp${formatRupiah.format(akhirContoh)}");
 
-  // Keuntungan memodelkan barang sebagai objek adalah data dan fungsi
-  // setiap barang menjadi lebih terstruktur dan mudah dikelola.
-  // Jika sistem koperasi berkembang, objek Barang dapat dikembangkan
-  // dengan fitur seperti harga, stok, kategori, dan transaksi tanpa
-  // membuat banyak variabel yang terpisah.
+  // Pemecahan program menjadi fungsi membuat kode lebih rapi,
+  // mudah digunakan kembali, dan mengurangi pengulangan kode.
+  // Jika aturan potongan berubah, cukup mengubah fungsi
+  // hitungHargaAkhir() satu kali tanpa mengubah seluruh program.
 }
