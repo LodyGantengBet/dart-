@@ -12,8 +12,24 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Koperasi Sekolah'),
         ),
-        body: const Center(
-          child: Text('Selamat datang'),
+        body: Container(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Buku Tulis'),
+
+              const SizedBox(height: 8),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text('Anggota: Rp3.000'),
+                  Text('Umum: Rp3.500'),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
