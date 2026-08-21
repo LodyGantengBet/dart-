@@ -7,28 +7,42 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Koperasi Sekolah'),
-        ),
-        body: Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Buku Tulis'),
+    return const MaterialApp(
+      home: KoperasiPage(),
+    );
+  }
+}
 
-              const SizedBox(height: 8),
+class KoperasiPage extends StatelessWidget {
+  const KoperasiPage({super.key});
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('Anggota: Rp3.000'),
-                  Text('Umum: Rp3.500'),
-                ],
-              ),
-            ],
+  @override
+  Widget build(BuildContext context) {
+    int stok = 0;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Koperasi Sekolah'),
+      ),
+      body: Card(
+        margin: const EdgeInsets.all(12),
+        child: ListTile(
+          leading: const Icon(Icons.inventory_2),
+          title: const Text(
+            'Buku Tulis',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle: const Text(
+            'Anggota Rp3.000 | Umum Rp3.500',
+          ),
+          trailing: Text(
+            'Stok ' + stok.toString(),
+            style: TextStyle(
+              color: stok == 0 ? Colors.red : Colors.black,
+            ),
           ),
         ),
       ),
